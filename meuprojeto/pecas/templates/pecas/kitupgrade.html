@@ -1,0 +1,133 @@
+{% load static %}
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+    <meta charset="UTF-8">
+    <title>Kits Upgrade | ShopOnline</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'pecas/style.css' %}">
+    </head>
+    <body class="kit-upgrade-page">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom py-2">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-danger" href="#">
+        <i class="fas fa-store"></i> ShopOnline
+        </a>
+        <form class="d-flex mx-auto" role="search">
+        <input class="form-control me-2" type="search" placeholder="Pesquisar produtos" aria-label="Search">
+        <button class="btn btn-danger" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+        <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+            <a class="nav-link text-danger" href="#"><i class="fas fa-user"></i> Conta</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-danger" href="#"><i class="fas fa-shopping-cart"></i> Carrinho</a>
+        </li>
+        </ul>
+    </div>
+    </nav>
+
+    <!-- Submenu -->
+    <div class="submenu-bar d-flex flex-wrap align-items-center">
+    <a href="#"><i class="fas fa-bars"></i> <strong>Departamentos</strong></a>
+    <a href="#">Promoções</a>
+    <a href="#">Pc Gamer</a>
+    <a href="#" class="text-danger fw-bold">Kit Upgrade</a>
+    <a href="#">Hardware</a>
+    <a href="#">Notebook</a>
+    <a href="#">Monitores</a>
+    <a href="#">Monte Seu Pc</a>
+    <a href="#">Atendimento</a>
+    </div>
+
+    <!-- Vitrine de Kits -->
+    <!-- Vitrine de Kits -->
+<div class="container my-5">
+  <h2 class="fw-bold text-center mb-4">Kits Upgrade em Destaque</h2>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+
+    {% for kit in kits %}
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="{{ kit.imagem.url }}" class="card-img-top" alt="{{ kit.nome }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ kit.nome }}</h5>
+          <p class="card-text">{{ kit.descricao }}</p>
+          <h6 class="text-danger fw-bold">R$ {{ kit.preco }}</h6>
+          <a href="#" class="btn btn-danger w-100"><i class="fas fa-shopping-cart"></i> Comprar</a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-center">Nenhum kit de upgrade encontrado.</p>
+    {% endfor %}
+
+  </div>
+</div>
+
+
+    <!-- Rodapé -->
+    <div class="bg-dark text-center py-4">
+    <h5 class="fw-bold">Veja recomendações personalizadas</h5>
+    <button class="btn btn-danger px-4 fw-bold">Faça seu login</button>
+    <div class="mt-2">
+        <small>Cliente novo? <a href="#">Comece aqui.</a></small>
+    </div>
+    </div>
+
+    <div class="voltatopo text-center text-white py-2">
+    <a href="#" class="text-white text-decoration-none">Voltar ao início</a>
+    </div>
+
+    <footer class="recomendacoes text-light pt-5 pb-4">
+    <div class="container">
+        <div class="row text-start">
+        <div class="col-md-3 mb-4">
+            <h6 class="fw-bold">Conheça-nos</h6>
+            <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">Sobre a ShopOnline</a></li>  
+            <li><a href="#" class="text-light text-decoration-none">Comunidade</a></li> 
+            </ul>
+        </div>
+        <div class="col-md-3 mb-4">
+            <h6 class="fw-bold">Ganhe dinheiro conosco</h6>
+            <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">Venda na ShopOnline</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Anuncie seus produtos</a></li>
+            </ul>
+        </div>
+        <div class="col-md-3 mb-4">
+            <h6 class="fw-bold">Pagamento</h6>
+            <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">Meios de Pagamento</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Cartão de Crédito</a></li>
+            </ul>
+        </div>
+        <div class="col-md-3 mb-4">
+            <h6 class="fw-bold">Deixe-nos ajudar você</h6>
+            <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">Sua conta</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Frete e prazo de entrega</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Ajuda</a></li>
+            </ul>
+        </div>
+        </div>
+    </div>
+    <div class="text-center mt-3 small text-secondary">
+        <a href="#" class="text-decoration-none text-secondary">Condições de Uso</a> |
+        <a href="#" class="text-decoration-none text-secondary">Privacidade</a> |
+        <a href="#" class="text-decoration-none text-secondary">Cookies</a> |
+        <a href="#" class="text-decoration-none text-secondary">Anúncios baseados em interesses</a>
+        <br>
+        © 2021-2025 ShopOnline, Inc. ou suas afiliadas
+    </div>
+    </footer>
+
+    </body>
+    </html>

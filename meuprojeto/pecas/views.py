@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.models import User
-
+from .models import Perfil
 
 class ProdutoListView(ListView):
     model = Produto
@@ -33,7 +33,31 @@ class ProdutoDetailView(DetailView):
     template_name = 'pecas/produto_detail.html'
     context_object_name = 'produto_detalhe'
 
-from .models import Perfil
+class pedidosdetail(DetailView):
+    model = Produto
+    template_name = 'pecas/favoritos.html'
+    context_object_name = 'pedidos_detalhe'
+
+
+
+
+class KitUpgradeListView(ListView):
+    model = Produto
+    queryset = Produto.objects.filter(categoria__nome='Kit Upgrade')
+    paginate_by = 6
+    template_name = 'pecas/kitupgrade.html'
+    context_object_name = 'kits'
+    
+
+class dadosView(DetailView):
+    model = Perfil
+    template_name = 'pecas/meudados.html'
+    context_object_name = 'perfil_detalhe'
+
+    def get_object(self, queryset=None):
+        return self.request.user.perfil  # Obtém o perfil do usuário logado
+
+
 
 class CriarContaView(View):
     def get(self, request):
