@@ -18,9 +18,10 @@
 <!-- Navbar Principal -->
 <nav class="navbar navbar-expand-lg navbar-custom py-2 ">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-danger" href="#">
-      <i class="fas fa-store"></i> ShopOnline
-    </a>
+    <a class="navbar-brand fw-bold text-danger" href="{% url 'home' %}">
+  <i class="fas fa-store"></i> ShopOnline
+</a>
+
 
     <form class="d-flex mx-auto" role="search">
       <input class="form-control me-2" type="search" placeholder="Pesquisar produtos" aria-label="Search">
@@ -32,7 +33,7 @@
         <a class="nav-link text-danger" href="{% url 'login' %}"><i class="fas fa-user"></i> Conta</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-danger" href="#"><i class="fas fa-shopping-cart"></i> Carrinho</a>
+        <a class="nav-link text-danger" href="{% url 'carrinho' %}"><i class="fas fa-shopping-cart"></i> Carrinho</a>
       </li>
     </ul>
   </div>
@@ -41,14 +42,13 @@
 <!-- Submenu -->
 <div class="submenu-bar d-flex flex-wrap align-items-center">
   <a href="#"><i class="fas fa-bars"></i> <strong>Departamentos</strong></a>
-  <a href="#">Promoções</a>
-  <a href="#">Pc Gamer</a>
+  <a href="{% url 'promocao' %}">Promoções</a>
+  <a href="{% url 'pc_gamer' %}">Pc Gamer</a>
   <a href="{% url 'kitupgrade' %}">Kit Upgrade</a>
-  <a href="#">Hardware</a>
-  <a href="#">Notebook</a>
-  <a href="#">Monitores</a>
-  <a href="#">Monte Seu Pc</a>
-  <a href="#">Atendimento</a>
+  <a href="{% url 'hardwares' %}">Hardware</a>
+  <a href="{% url 'monitor' %}">Notebook</a>
+  <a href="{% url 'monitor' %}">Monitores</a>
+  <a href="{% url 'atendimento' %}">Atendimento</a>
 </div>
 
 <!-- Imagens -->
@@ -57,6 +57,33 @@
     <div class="d-flex justify-content-center">
   <img src="/media/banner/banner.png" class="banner-gnome img-fluid" alt="Promoção Gnome Gamer">
   </div>
+
+  <div class="container my-5">
+    <h2 class="fw-bold text-center mb-4">Ofertas Imperdíveis</h2>
+        <div class="container my-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for produto in produtos %}
+        <div class="col">
+        <div class="card h-100 shadow-sm">
+            <img src="{{ produto.imagem.url }}" class="card-img-top" alt="{{ produto.nome }}">
+            <div class="card-body">
+            <h5 class="card-title">{{ produto.nome }}</h5>
+            <p class="card-text">{{ produto.descricao }}</p>
+            <h6 class="text-danger fw-bold">R$ {{ produto.preco }}</h6>
+            <form action="{% url 'add_no_carrinho' produto.id %}" method="post">
+                {% csrf_token %}
+            <button type="submit" class="btn btn-danger w-100">
+                <i class="fas fa-shopping-cart"></i> Comprar
+            </button>
+            </form>
+            </div>
+        </div>
+        </div>
+    {% empty %}
+        <p>Não há produtos nessa categoria.</p>
+    {% endfor %}
+    </div>
+    </div>
 
 
 <!-- Voltar ao topo -->

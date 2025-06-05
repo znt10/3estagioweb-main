@@ -15,7 +15,7 @@
     <!-- Navbar Principal -->
 <nav class="navbar navbar-expand-lg navbar-custom py-2 ">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-danger" href="#">
+    <a class="navbar-brand fw-bold text-danger" href="{% url 'home' %}">
       <i class="fas fa-store"></i> ShopOnline
     </a>
 
@@ -29,7 +29,7 @@
         <a class="nav-link text-danger" href="#"><i class="fas fa-user"></i> Conta</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-danger" href="#"><i class="fas fa-shopping-cart"></i> Carrinho</a>
+        <a class="nav-link text-danger" href="{% url 'carrinho' %}"><i class="fas fa-shopping-cart"></i> Carrinho</a>
       </li>
     </ul>
   </div>
@@ -38,14 +38,13 @@
 <!-- Submenu -->
 <div class="submenu-bar d-flex flex-wrap align-items-center">
   <a href="#"><i class="fas fa-bars"></i> <strong>Departamentos</strong></a>
-  <a href="#">Promoções</a>
-  <a href="#">Pc Gamer</a>
+  <a href="{% url 'promocao' %}">Promoções</a>
+  <a href="{% url 'pc_gamer' %}">Pc Gamer</a>
   <a href="{% url 'kitupgrade' %}">Kit Upgrade</a>
-  <a href="#">Hardware</a>
-  <a href="#">Notebook</a>
-  <a href="#">Monitores</a>
-  <a href="#">Monte Seu Pc</a>
-  <a href="#">Atendimento</a>
+  <a href="{% url 'hardwares' %}">Hardware</a>
+  <a href="{% url 'monitor' %}">Notebook</a>
+  <a href="{% url 'monitor' %}">Monitores</a>
+  <a href="{% url 'atendimento' %}">Atendimento</a>
 </div>
 
 <div class="container-form">
