@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Excluir Produto{% endblock %}
+
+{% block content %}
+<h2 class="fw-bold text-center mb-4">Excluir Produto</h2>
+
+<div class="text-center mb-4">
+    {% if object.imagem %}
+        <img src="{{ object.imagem.url }}" alt="{{ object.nome }}" class="img-thumbnail" style="max-width: 300px;">
+    {% endif %}
+</div>
+
+<div class="alert alert-warning text-center" role="alert">
+    Tem certeza que deseja excluir o produto <strong>{{ object.nome }}</strong>?
+</div>
+
+<form method="post" class="text-center">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sim, excluir</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary ms-2">Cancelar</a>
+</form>
+{% endblock %}

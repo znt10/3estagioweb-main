@@ -7,12 +7,14 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nome
 
+
 class Perfil(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     cpf = models.CharField(max_length=11, unique=True)
     genero = models.CharField(max_length=20)
     data_nascimento = models.DateField()
     telefone = models.CharField(max_length=15)
+    is_vendedor = models.BooleanField(default=False) 
 
     def __str__(self):
         return self.user.get_full_name() or self.user.username
@@ -25,7 +27,8 @@ class Produto(models.Model):
     imagem = models.ImageField(upload_to='produtos/')
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='produtos')
     data_cadastro = models.DateTimeField(auto_now_add=True)
-    vendedor = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank=True)
+    
+
 
     def __str__(self):
         return self.nome

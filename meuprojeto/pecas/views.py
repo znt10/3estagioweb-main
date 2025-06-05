@@ -41,8 +41,6 @@ class LoginView(View):
 
 
 
-
-
 class AddNoCarrinho(View):
     def post(self, request, pk):
         if not request.user.is_authenticated:
@@ -80,7 +78,7 @@ class ProdutoListView(ListView):
         pesquisar = self.request.GET.get('q')
 
         if pesquisar:
-            queryset = queryset.filter(nome__icontains=pesquisar)  # corrigido: 'titulo' → 'nome'
+            queryset = queryset.filter(nome__icontains=pesquisar)  
         if ordenar:
             queryset = queryset.order_by(ordenar)
         return queryset
@@ -157,11 +155,12 @@ class CriarContaView(View):
         nome = request.POST.get('nome')
         cpf = request.POST.get('cpf', '').replace('.', '').replace('-', '').strip()
         genero = request.POST.get('genero')
-        data = request.POST.get('data')  # deve estar no formato yyyy-mm-dd
+        data = request.POST.get('data')
         telefone = request.POST.get('telefone')
         email = request.POST.get('email')
         senha = request.POST.get('senha')
         confirmar = request.POST.get('confirmar')
+        origem = request.POST.get('origem')
 
         if senha != confirmar:
             return render(request, 'pecas/cadastro.html', {
@@ -173,21 +172,21 @@ class CriarContaView(View):
                 'erro': 'Este e-mail já está em uso.'
             })
 
-        # Cria o usuário
         user = User.objects.create_user(username=email, email=email, password=senha)
         user.first_name = nome
         user.save()
 
-        # Cria o perfil vinculado ao usuário
+
         Perfil.objects.create(
             user=user,
             cpf=cpf,
             genero=genero,
             data_nascimento=data,
-            telefone=telefone
+            telefone=telefone,
         )
 
         return redirect('home')
+
 
 
 class LoginView(View):
@@ -198,12 +197,13 @@ class LoginView(View):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
 
-
         user = authenticate(request, username=email, password=senha)
 
         if user is not None:
             login(request, user)
-            return redirect('home')  # ou a rota que você quiser
+            if hasattr(user, 'perfil') and user.perfil.is_vendedor:
+                return redirect('painel_vendedor')  
+            return redirect('home')  
         else:
             return render(request, 'pecas/login.html', {
                 'erro': 'Email ou senha inválidos.'
@@ -215,28 +215,23 @@ class LoginView(View):
 class ProdutoCreateView(LoginRequiredMixin, CreateView):
     model = Produto
     fields = ['nome', 'descricao', 'preco', 'imagem', 'categoria']
-    template_name = 'pecas/produto_form.html'
+    template_name = 'pecas/criar.html'
+    success_url = reverse_lazy('gerenciar_produtos')  
 
-    def form_valid(self, form):
-        form.instance.vendedor = self.request.user
-        return super().form_valid(form)
-    
+class gerenciar_produtos(LoginRequiredMixin, ListView):
+    model = Produto
+    template_name = 'pecas/gerenciar.html'
+    context_object_name = 'produtos'
 
 
 class ProdutoUpdateView(LoginRequiredMixin, UpdateView):
     model = Produto
     fields = ['nome', 'descricao', 'preco', 'imagem', 'categoria']
-    template_name = 'pecas/produto_form.html'
-
-    def get_queryset(self):
-        return Produto.objects.filter(vendedor=self.request.user)
-    
+    template_name = 'pecas/editar.html'
+    success_url = reverse_lazy('gerenciar_produtos')  
 
 
 class ProdutoDeleteView(LoginRequiredMixin, DeleteView):
     model = Produto
-    template_name = 'pecas/produto_confirm_delete.html'
-    success_url = reverse_lazy('produto-list')  # redireciona para a lista após deletar
-
-    def get_queryset(self):
-        return Produto.objects.filter(vendedor=self.request.user)
+    template_name = 'pecas/deletar.html'
+    success_url = reverse_lazy('gerenciar_produtos')  
