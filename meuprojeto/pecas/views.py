@@ -158,7 +158,7 @@ class CriarContaView(View):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
         confirmar = request.POST.get('confirmar')
-        origem = request.POST.get('origem')
+    
 
         if senha != confirmar:
             return render(request, 'pecas/cadastro.html', {
