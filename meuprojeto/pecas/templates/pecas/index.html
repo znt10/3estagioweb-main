@@ -23,26 +23,10 @@
 </a>
 
 
-    <form method="get" action="" class="d-flex mx-auto" role="search">
-      <input 
-        class="form-control me-2" 
-        type="search" 
-        name="q" 
-        placeholder="Pesquisar produtos" 
-        aria-label="Pesquisar produtos"
-        value="{{ request.GET.q|default:'' }}"
-      >
-      
-      <select name="ordenar_por" class="form-select me-2">
-        <option value="">Ordenar por...</option>
-        <option value="nome" {% if request.GET.ordenar_por == "nome" %}selected{% endif %}>Nome A-Z</option>
-        <option value="-nome" {% if request.GET.ordenar_por == "-nome" %}selected{% endif %}>Nome Z-A</option>
-        <option value="data_criacao" {% if request.GET.ordenar_por == "data_criacao" %}selected{% endif %}>Mais antigo</option>
-        <option value="-data_criacao" {% if request.GET.ordenar_por == "-data_criacao" %}selected{% endif %}>Mais recente</option>
-      </select>
-
-      <button class="btn btn-danger" type="submit"><i class="fas fa-search"></i></button>
-    </form>
+    <form class="d-flex mx-auto" role="search">
+            <input class="form-control me-2" type="search" placeholder="Pesquisar produtos" aria-label="Search">
+            <button class="btn btn-danger" type="submit"><i class="fas fa-search"></i></button>
+        </form>
 
 
     <ul class="navbar-nav ms-auto">

@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     ProdutoListView, ProdutoDetailView, ProdutoCreateView, ProdutoUpdateView,
     ProdutoDeleteView, CriarContaView,remover_do_carrinho ,KitUpgradeListView,carrinho,AddNoCarrinho ,LoginView, pcgamer,hardwares,notebook,monitor,
-    promocao,atendimento,remover_do_carrinho,gerenciar_produtos
+    promocao,atendimento,remover_do_carrinho,gerenciar_produtos,DadosUsuarioView
 )
 from django.contrib.auth.views import LogoutView
 
@@ -28,6 +28,8 @@ urlpatterns = [
     path('carrinho/', carrinho.as_view(), name='carrinho'),
     path('remover-do-carrinho/<int:pk>/', remover_do_carrinho.as_view(), name='remover'),
     path('gerenciar-produtos/', gerenciar_produtos.as_view(), name='gerenciar_produtos'),
+    path('dados-usuario/', DadosUsuarioView.as_view(), name='dados_usuario'),
+
 
     
 ]
