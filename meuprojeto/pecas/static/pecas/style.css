@@ -39,7 +39,10 @@ body {
 }
 
 /* Navbar e Submenu */
-.navbar-custom,
+.navbar-custom {
+    background-color: #000 !important;
+}
+
 .voltatopo {
     background-color: #1e0235;
 }

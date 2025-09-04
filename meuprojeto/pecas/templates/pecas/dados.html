@@ -67,7 +67,7 @@
                     <p><strong>Email:</strong> {{ user.email }}</p>
 
                     <div class="actions">
-                        <a href="" class="btn btn-edit">Editar</a>
+                        <a href="{% url 'editar_email' %}" class="btn btn-edit">Editar</a>
                         
                         <form method="post" action="{% url 'logout' %}" style="display:inline;">
                         {% csrf_token %}

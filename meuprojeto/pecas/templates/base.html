@@ -18,6 +18,10 @@
         <a class="navbar-brand fw-bold text-danger" href="{% url 'home' %}">
             <i class="fas fa-store"></i> GnomosGames
         </a>
+        <form class="d-flex mx-auto" role="search">
+            <input class="form-control me-2" type="search" placeholder="Pesquisar produtos" aria-label="Search">
+            <button class="btn btn-danger" type="submit"><i class="fas fa-search"></i></button>
+        </form>
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
                 <a class="nav-link text-danger" href="{% url 'login' %}"><i class="fas fa-user"></i> Conta</a>
@@ -29,13 +33,25 @@
     </div>
 </nav>
 
+<!-- Submenu -->
+<div class="submenu-bar d-flex flex-wrap align-items-center">
+    <a href="{% url 'promocao' %}">Promoções</a>
+    <a href="{% url 'pc_gamer' %}">Pc Gamer</a>
+    <a href="{% url 'kitupgrade' %}">Kit Upgrade</a>
+    <a href="{% url 'hardwares' %}">Hardware</a>
+    <a href="{% url 'notebook' %}">Notebook</a>
+    <a href="{% url 'monitor' %}">Monitores</a>
+    <a href="{% url 'atendimento' %}">Atendimento</a>
+</div>
+
 <!-- Conteúdo principal -->
 <div class="container mt-5">
     {% block content %}
     {% endblock %}
 </div>
 
-<!-- Rodapé -->
+<!-- Rodapé (pode ser sobrescrito em templates filhos) -->
+{% block footer %}
 <footer class="recomendacoes text-light pt-5 pb-4 mt-5">
     <div class="container">
         <div class="row text-start">
@@ -79,6 +95,7 @@
         © 2021-2025 ShopOnline, Inc. ou suas afiliadas
     </div>
 </footer>
+{% endblock %}
 
 </body>
 </html>
